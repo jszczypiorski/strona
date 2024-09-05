@@ -19,7 +19,7 @@ export const RecipesList = ({ recipes }) => {
   return (
     <Grid container spacing={3}>
       {recipes.map((recipe, index) => (
-        <Grid item xs={12} sd={6} md={4} key={index}>
+        <Grid item xs={12} sm={6} md={4} key={index}>
           <Card sx={{ height: "100%" }}>
             <CardMedia
               alt={recipe.recipe.label}
@@ -31,9 +31,17 @@ export const RecipesList = ({ recipes }) => {
               <Typography gutterBottom variant="h5" component="div">
                 {recipe.recipe.label}
               </Typography>
+              <Typography variant="body2" color="textSecondary">
+                Calories: {Math.round(recipe.recipe.calories)} kcal
+              </Typography>
               <Box sx={{ flex: 1 }}>
-                {recipe.recipe.ingredientLines.map((ingredientLine) => (
-                  <Typography gutterBottom variant="body" component="div">
+                {recipe.recipe.ingredientLines.map((ingredientLine, idx) => (
+                  <Typography
+                    gutterBottom
+                    variant="body2"
+                    component="div"
+                    key={idx}
+                  >
                     {ingredientLine}
                   </Typography>
                 ))}

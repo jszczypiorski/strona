@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button, InputAdornment, IconButton } from "@mui/material";
+import { TextField, InputAdornment, IconButton } from "@mui/material";
 import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -9,16 +9,16 @@ const SearchContainer = styled.div`
   margin: 20px 0;
 `;
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ setRecipes }) => {
   const [query, setQuery] = useState("chicken");
-
+  console.log(query);
   async function handleClick() {
     const response = await fetch(
-      `https://api.edamam.com/api/recipes/v2?q=chicken&type=public&app_id=505c4b4c&app_key=4ec7e993d071b74980adc7585c050cbb`,
+      `https://api.edamam.com/api/recipes/v2?q=${query}&type=public&app_id=505c4b4c&app_key=4ec7e993d071b74980adc7585c050cbb`,
     );
     const data = await response.json();
     console.log(data);
-    onSearch(data.hits);
+    setRecipes(data.hits);
   }
   useEffect(() => {
     handleClick();
@@ -43,9 +43,6 @@ const SearchBar = ({ onSearch }) => {
         }}
         fullWidth
       />
-      <Button variant="contained" color="primary" onClick={handleClick}>
-        Search
-      </Button>
     </SearchContainer>
   );
 };
