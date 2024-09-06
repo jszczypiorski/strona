@@ -10,14 +10,13 @@ const SearchContainer = styled.div`
 `;
 
 const SearchBar = ({ setRecipes }) => {
-  const [query, setQuery] = useState("chicken");
+  const [query, setQuery] = useState();
   console.log(query);
   async function handleClick() {
     const response = await fetch(
       `https://api.edamam.com/api/recipes/v2?q=${query}&type=public&app_id=505c4b4c&app_key=4ec7e993d071b74980adc7585c050cbb`,
     );
     const data = await response.json();
-    console.log(data);
     setRecipes(data.hits);
   }
   useEffect(() => {
@@ -29,7 +28,6 @@ const SearchBar = ({ setRecipes }) => {
       <TextField
         label="Wyszukaj przepisy..."
         variant="outlined"
-        value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyPress={(e) => e.key === "Enter" && handleClick()}
         InputProps={{
